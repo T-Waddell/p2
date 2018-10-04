@@ -17,7 +17,7 @@ require 'logic.php';
 <body>
     <h1>Time to Save</h1>
     <p>Use this calculator to learn how long your savings goal will take you.</p>
-    <form method='GET' action='search.php'>
+    <form method='GET' action='calculate.php'>
 
         <label>How much money do you want to save?
             <input type='text' name='savingsGoal'>
@@ -27,6 +27,9 @@ require 'logic.php';
         </label>
         <label><input type='radio' name='cadence' value='weekly'> Weekly</label>
         <label><input type='radio' name='cadence' value='monthly'> Monthly</label>
+        <label>Today's date:
+            <input type="date" id="start" name="trip" />
+        </label>
 
         <input type='submit' value='Calculate'>
     </form>
