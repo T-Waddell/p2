@@ -28,16 +28,14 @@ require 'logic.php';
         <label><input type='radio' name='cadence' value='weekly' <?php if (isset($cadence) AND $cadence == 'weeks') echo 'checked' ?>> Weekly</label>
         <label><input type='radio' name='cadence' value='monthly' <?php if (isset($cadence) AND $cadence == 'months') echo 'checked' ?>> Monthly</label>
         <label>What date do you plan to start saving?
-            <input type="date" id="start" name="today" />
+            <input type="date" id="start" name="startDate" value='<?php if (isset($startDate)) echo $startDate ?>'>
         </label>
-        <?php
-        echo date('Y-m-d', strtotime("+30 days"));
-        ?>
         <input type='submit' value='Calculate'>
     </form>
     <?php if (isset($calculated)): ?>
         <div class='alert alert-primary' role='alert'>
             <p>It will take you <?= $calculated ?> <?= $cadence ?> to save for your goal of $<?= $savingsGoal ?>.</p>
+            <p>You will reach your goal on approximately <?= $completeDate ?>.</p>
         </div>
     <?php endif ?>
 

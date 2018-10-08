@@ -12,6 +12,8 @@ if(isset($_SESSION['results'])){
     $cadence = $results['cadence'];
     $savingsGoal = $results['savingsGoal'];
     $savings = $results['savings'];
+    $startDate = $results['startDate'];
+    $completeDate = $results['completeDate'];
 }
 
 #delete the session so on the next page load the results no longer appear.
