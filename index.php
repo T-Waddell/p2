@@ -20,20 +20,26 @@ require 'logic.php';
     <form method='GET' action='calculate.php'>
 
         <label>How much money do you want to save?
-            <input type='text' name='savingsGoal'>
+            <input type='text' name='savingsGoal' value='<?php if (isset($savingsGoal)) echo $savingsGoal ?>'>
         </label>
         <label>How much money can you put into savings each week or month?
-            <input type='text' name='savingsGoal'>
+            <input type='text' name='savings' value='<?php if (isset($savings)) echo $savings ?>'>
         </label>
-        <label><input type='radio' name='cadence' value='weekly'> Weekly</label>
-        <label><input type='radio' name='cadence' value='monthly'> Monthly</label>
-        <label>Today's date:
-            <input type="date" id="start" name="trip" />
+        <label><input type='radio' name='cadence' value='weekly' <?php if (isset($cadence) AND $cadence == 'weeks') echo 'checked' ?>> Weekly</label>
+        <label><input type='radio' name='cadence' value='monthly' <?php if (isset($cadence) AND $cadence == 'months') echo 'checked' ?>> Monthly</label>
+        <label>What date do you plan to start saving?
+            <input type="date" id="start" name="today" />
         </label>
-
+        <?php
+        echo date('Y-m-d', strtotime("+30 days"));
+        ?>
         <input type='submit' value='Calculate'>
     </form>
-
+    <?php if (isset($calculated)): ?>
+        <div class='alert alert-primary' role='alert'>
+            <p>It will take you <?= $calculated ?> <?= $cadence ?> to save for your goal of $<?= $savingsGoal ?>.</p>
+        </div>
+    <?php endif ?>
 
 
 </body>
