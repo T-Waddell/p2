@@ -4,6 +4,11 @@
 session_start();
 
 require 'helpers.php';
+require 'Dates.php';
+require 'Form.php';
+
+use p2\Dates;
+use DWA\Form;
 
 $savingsGoal = $_GET['savingsGoal'];
 dump('savings goal: '.$savingsGoal);
@@ -11,6 +16,8 @@ $savings = $_GET['savings'];
 dump('savings amount: '.$savings);
 $cadence = $_GET['cadence'];
 dump('cadence: '.$cadence);
+#Get the start date from the form
+$startDate = $_GET['startDate'];
 
 If ($cadence == 'weekly'){
     $cadence = 'weeks';
@@ -22,6 +29,13 @@ else {
 $calculated = ceil($savingsGoal / $savings);
 dump('It will take you '.$calculated.' '.$cadence.' to save for your goal of $'.$savingsGoal.'.');
 
+$date = new Dates();
+
+$completeDate = $date->dateCalculate($startDate, $cadence, $calculated);
+dump('start date: '.$startDate);
+dump ('complete date: '.$completeDate);
+
+/*working code:
 #Get the start date from the form
 $startDate = $_GET['startDate'];
 dump($startDate);
@@ -39,7 +53,7 @@ dump(date("m-d-y", strtotime("$startDate +10 days")));
 
 #example: using today's date
 echo date('Y-m-d', strtotime("+30 days"));
-
+*/
 
 #Get the
 
