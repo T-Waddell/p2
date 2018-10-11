@@ -17,7 +17,10 @@
 * Dates.php
 
 ## Code style divergences
-*No divergences from PSR-1/PSR-2 and course guidelines on code style*
+No divergences from PSR-1/PSR-2 and course guidelines on code style
+
+## Notes for instructor
+When using the w3 validator, my production URL receives a warning that the date input type is not supported by all browsers. Since we are supposed to avoid using Javascript for this project, I didn't include a polyfill to address the issue.
 
 
 
