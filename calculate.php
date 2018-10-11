@@ -1,8 +1,5 @@
 <?php
 
-#start the session at the top of the page.
-session_start();
-
 require 'helpers.php';
 require 'Dates.php';
 require 'Form.php';
@@ -10,63 +7,48 @@ require 'Form.php';
 use p2\Dates;
 use DWA\Form;
 
-$savingsGoal = $_GET['savingsGoal'];
-dump('savings goal: '.$savingsGoal);
-$savings = $_GET['savings'];
-dump('savings amount: '.$savings);
-$cadence = $_GET['cadence'];
-dump('cadence: '.$cadence);
-#Get the start date from the form
-$startDate = $_GET['startDate'];
+#start the session
+session_start();
 
-If ($cadence == 'weekly'){
-    $cadence = 'weeks';
-}
-else {
-    $cadence = 'months';
-}
-
-$calculated = ceil($savingsGoal / $savings);
-dump('It will take you '.$calculated.' '.$cadence.' to save for your goal of $'.$savingsGoal.'.');
-
+#instantiate objects
+$form = new Form($_GET);
 $date = new Dates();
 
-$completeDate = $date->dateCalculate($startDate, $cadence, $calculated);
-dump('start date: '.$startDate);
-dump ('complete date: '.$completeDate);
+#Get our variables from the form:
+$savingsGoal = $form->get('savingsGoal');
+$savings = $form->get('savings');
+$cadence = $form->get('cadence');
+$startDate = $form->get('startDate');
 
-/*working code:
-#Get the start date from the form
-$startDate = $_GET['startDate'];
-dump($startDate);
+$errors = $form->validate(
+    [
+        'savingsGoal' => 'required|digit|min:1',
+        'savings' => 'required|digit|min:1',
+        'cadence' => 'required',
+        'startDate' => 'required',
+    ]
+);
+#This returns an array of error messages.
 
-if ($cadence == 'weeks') {
-    $daysToAdd = $calculated*7;
-} elseif ($cadence == 'months') {
-    $daysToAdd = $calculated*30;
+if (!$form->hasErrors) {
+    #Adjust the cadence verbiage:
+    If ($cadence == 'weekly') {
+        $cadence = 'weeks';
+    } else {
+        $cadence = 'months';
+    }
+
+    #Calculate the length of time needed to reach the savings goal:
+    $calculated = ceil($savingsGoal / $savings);
+
+    #Calculate the date the goal will be completed by.
+    $completeDate = $date->dateCalculate($startDate, $cadence, $calculated);
 }
-
-#Add days to the start date:
-$completeDate = date('m-d-y', strtotime("$startDate +$daysToAdd days"));
-#Example: add 10 days
-dump(date("m-d-y", strtotime("$startDate +10 days")));
-
-#example: using today's date
-echo date('Y-m-d', strtotime("+30 days"));
-*/
-
-#Get the
-
-/*using the timestamp vs. a variable:
-$newDate = date('Y-m-d', strtotime("+30 days"));
-dump($newDate);
-
-$finishDate = date('m-d-Y', strtotime('+60 days'));
-dump($finishDate);
-*/
 
 #Before our redirect, store data in the session.
 $_SESSION['results'] = [
+    'errors' => $errors,
+    'hasErrors' => $form->hasErrors,
     'calculated' => $calculated,
     'cadence' => $cadence,
     'savingsGoal' => $savingsGoal,

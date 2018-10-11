@@ -10,34 +10,66 @@ require 'logic.php';
 
     <title>Project 2 - Tara Waddell - CSCI E-15</title>
     <meta charset='utf-8'>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+          crossorigin="anonymous">
     <link href='/css/styles.css' rel='stylesheet'>
 
 </head>
 <body>
-    <h1>Time to Save</h1>
-    <p>Use this calculator to learn how long your savings goal will take you.</p>
-    <form method='GET' action='calculate.php'>
+<div class="container">
+    <div class="row">
+        <div class="col">
 
-        <label>How much money do you want to save?
-            <input type='text' name='savingsGoal' value='<?php if (isset($savingsGoal)) echo $savingsGoal ?>'>
-        </label>
-        <label>How much money can you put into savings each week or month?
-            <input type='text' name='savings' value='<?php if (isset($savings)) echo $savings ?>'>
-        </label>
-        <label><input type='radio' name='cadence' value='weekly' <?php if (isset($cadence) AND $cadence == 'weeks') echo 'checked' ?>> Weekly</label>
-        <label><input type='radio' name='cadence' value='monthly' <?php if (isset($cadence) AND $cadence == 'months') echo 'checked' ?>> Monthly</label>
-        <label>What date do you plan to start saving?
-            <input type="date" id="start" name="startDate" value='<?php if (isset($startDate)) echo $startDate ?>'>
-        </label>
-        <input type='submit' value='Calculate'>
-    </form>
-    <?php if (isset($calculated)): ?>
-        <div class='alert alert-primary' role='alert'>
-            <p>It will take you <?= $calculated ?> <?= $cadence ?> to save for your goal of $<?= $savingsGoal ?>.</p>
-            <p>You will reach your goal on approximately <?= $completeDate ?>.</p>
         </div>
-    <?php endif ?>
+        <div class="col-6">
+            <h1>Time to Save</h1>
+            <p>Use this calculator to learn how long your savings goal will take you.</p>
+            <form method='GET' action='calculate.php'>
+
+                <label>How much money do you want to save?
+                    <input type='text' name='savingsGoal' value='<?php if (isset($savingsGoal)) echo $savingsGoal ?>'>
+                </label>
+                <label>How much money can you put into savings each week or month?
+                    <input type='text' name='savings' value='<?php if (isset($savings)) echo $savings ?>'>
+                </label>
+                <label><input type='radio'
+                              name='cadence'
+                              value='weekly' <?php if (isset($cadence) AND $cadence == 'weeks') echo 'checked' ?>> Weekly</label>
+                <label><input type='radio'
+                              name='cadence'
+                              value='monthly' <?php if (isset($cadence) AND $cadence == 'months') echo 'checked' ?>> Monthly</label>
+                <label>What date do you plan to start saving?
+                    <input type="date"
+                           id="start"
+                           name="startDate"
+                           value='<?php if (isset($startDate)) echo $startDate ?>'>
+                </label>
+                <input type='submit' value='Calculate'>
+                <?php if ($hasErrors) : ?>
+                    <div class='alert alert-danger'>
+                        <ul>
+                            <?php foreach ($errors as $error) : ?>
+                                <li><?= $error ?></li>
+                            <?php endforeach ?>
+                        </ul>
+                    </div>
+                <?php endif ?>
+            </form>
+            <?php if (isset($calculated)): ?>
+                <div class='alert alert-primary' role='alert'>
+                    <p>It will take you <?= $calculated ?> <?= $cadence ?> to save for your goal of $<?= $savingsGoal ?>.</p>
+                    <p>You will reach your goal on approximately <?= $completeDate ?>.</p>
+                </div>
+            <?php endif ?>
+
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</div>
 
 
 </body>

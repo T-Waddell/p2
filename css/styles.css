@@ -1,3 +1,15 @@
 label {
     display: block;
 }
+
+input {
+    display: block;
+}
+
+form {
+    margin: 2rem 0;
+}
+
+.alert {
+    margin: 1rem 0;
+}

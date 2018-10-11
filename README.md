@@ -8,16 +8,16 @@
 * [Stack Overflow post about how to add to a date variable](https://stackoverflow.com/questions/47830387/how-to-calculate-what-is-date-after-10-days-in-php)
 
 ## 3 Unique inputs
-*You don't have to list all inputs, just 3 unique ones. The following is an example of what I'd put if my project was the xkcd Password Generator: (1) Text input to indicate the user's savings goal, (2) Checkbox to indicate whether the user will be saving weekly or monthly (3) Dropdown to indicate what symbol to include*
+1. Text input to indicate the user's savings goal
+2. Radio buttons to indicate whether the user will be saving weekly or monthly
+3. Date input to select the date the user plans to start saving
 
 ## Class
-*List the name of the class you're using, e.g. `Form.php`, `Password.php`, etc.*
+* Form.php
+* Dates.php
 
 ## Code style divergences
-*list any divergences from PSR-1/PSR-2 and course guidelines on code style*
-
-## Notes for instructor
-*Any notes for me to refer to while grading; if none, omit this section*
+*No divergences from PSR-1/PSR-2 and course guidelines on code style*
 
 
 

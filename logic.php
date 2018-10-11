@@ -1,13 +1,16 @@
 <?php
-//test that our require functions are working.
-# echo 'logic.php is loaded';
 
 #extract our data out of the session if it exists.
 session_start();
 
-if(isset($_SESSION['results'])){
+#on initial page load, hasErrors should be false:
+$hasErrors = false;
+
+if (isset($_SESSION['results'])) {
     $results = $_SESSION['results'];
 
+    $errors = $results['errors'];
+    $hasErrors = $results['hasErrors'];
     $calculated = $results['calculated'];
     $cadence = $results['cadence'];
     $savingsGoal = $results['savingsGoal'];
@@ -16,5 +19,5 @@ if(isset($_SESSION['results'])){
     $completeDate = $results['completeDate'];
 }
 
-#delete the session so on the next page load the results no longer appear.
+#delete the session so on the next page load the results no longer appear:
 session_unset();
